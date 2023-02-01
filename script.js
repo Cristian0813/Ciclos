@@ -101,28 +101,28 @@ function ejercicio5() {
 function NumeroMayor(mayor1, mayor2, mayor3) {
     if (parseFloat(mayor1) > parseFloat(mayor2) && parseFloat(mayor1) > parseFloat(mayor3)) {
         if(parseFloat(mayor2) === parseFloat(mayor3)) {
-            return("El número mayor es " + mayor1 + " el número " + mayor2 + " está repetido.")
+            return("Los números " + mayor2 + " y " + mayor3 + " están repetidos. El número mayor es " + mayor1 + ".");
         }
         return("El número " + mayor1 + " es el mayor"); 
     } else if (parseFloat(mayor2) > parseFloat(mayor1) && parseFloat(mayor2) > parseFloat(mayor3)) {
         if(parseFloat(mayor1) === parseFloat(mayor3)) {
-            return("El número mayor es " + mayor2 + " el número " + mayor1 + " está repetido")
+            return("Los números " + mayor1 + " y " + mayor3 + " están repetidos. El número mayor es " + mayor2 + ".");
         }
-        return("El número: " + mayor1 + " es el mayor");
+        return("El número: " + mayor2 + " es el mayor");
     } else if (parseFloat(mayor3) > parseFloat(mayor1) && parseFloat(mayor3) > parseFloat(mayor2)) {
         if(parseFloat(mayor1) === parseFloat(mayor2)) {
-            return("El número mayor es el: " + mayor3 + ". " + "Y el número: " + mayor2 + " está repetido")
+            return("Los números " + mayor1 + " y " + mayor2 + " están repetidos. El número mayor es " + mayor3 + ".");
         }
         return("El número: " + mayor3 + " es el mayor");
+    } else if (parseFloat(mayor2) === parseFloat(mayor3)) {
+        return("El número menor es el: " + mayor1 + ". " + "Y el número " + mayor2 + " está repetido con el "+ mayor3 +".");
+    } else if (parseFloat(mayor1) === parseFloat(mayor3)) {
+        return("El número menor es el: " + mayor2 + ". " + "Y el número: " + mayor1 + " está repetidocon el "+ mayor3 +".");
+    } else if (parseFloat(mayor1) === parseFloat(mayor2)) {
+        return("El número menor es el: " + mayor3 + ". " + "Y el número " + mayor1 + " está repetido con el "+ mayor2 +".");
     } else if (parseFloat(mayor1) === parseFloat(mayor2) && parseFloat(mayor2) === parseFloat(mayor3)){
         return("Todos los números iguales");
-    } else if (parseFloat(mayor1) === parseFloat(mayor2)) {
-        return("El número menor es el: " + mayor3 + ". " + "Y el número: " + mayor1 + " está repetido")
-    } else if (parseFloat(mayor2) === parseFloat(mayor3)) {
-        return("El número menor es el: " + mayor1 + ". " + "Y el número: " + mayor2 + " está repetido")
-    } else if (parseFloat(mayor1) === parseFloat(mayor3)) {
-        return("El número menor es el: " + mayor2 + ". " + "Y el número: " + mayor1 + " está repetido")
-    } 
+    }
 }
 function ejercicio6() {
     const valorMayor1 = document.getElementById("input-ejercicio-6").value;
