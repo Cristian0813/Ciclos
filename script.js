@@ -1,4 +1,5 @@
 /* EJERCICIO 1 Solicitar al usuario que responda a la pregunta (“¿Eres bellísimo/a?”) encaso de contestar sí, responder “Ciertamente”, en caso de contestar no, responder: “No te creo”.*/
+
 function ejerBello(respuestaUsuario){
     if (respuestaUsuario ==='si' || respuestaUsuario ==='Si') {
         return(`Ciertamente`);
@@ -56,6 +57,7 @@ function ejercicio3() {
     resultado3.innerHTML="";
     resultado3.appendChild(NuevoTexto);
 }
+
 /*EJERCICIO 4 Solicitar al usuario un número de cliente. Si el número es el 1000, imprimir "Ganaste un premio", en caso contrario mostrar el número y el mensaje “Lo sentimos, sigue participando”.*/
 
 function NumeroMil(NumeroCliente) {
@@ -137,7 +139,6 @@ function ejercicio6() {
 
 /*EJERCICIO 7 Requerir al usuario que ingrese un día de la semana e imprimir un mensaje si es lunes, otro mensaje diferente si es viernes, otro mensaje diferente si es sábado o domingo. Si el día ingresado no es ninguno de esos, imprimir otro mensaje.*/
 
-
 function mostrarSemana(diaSemana){
     if (diaSemana === "lunes") {
         return ("Es lunes, ¡todo el éxito para ti!");
@@ -190,28 +191,175 @@ function ejercicio8(){
     ● El topping de KitKat cuesta 15 MXN.
     ● El topping de brownie cuesta 20 MXN.
 En caso de no disponer del topping solicitado por el usuario, el programa le indicará “no tenemos este topping, lo sentimos.” y a continuación le informará el precio del helado sin ningún topping.*/
-function calculatePrice() {
-    var basePrice = 50;
-    var toppingPrice = 0;
+
+const precioBase = 50;
+const precioOreo = 10;
+const precioKitKat = 15;
+const precioBrownie = 20;
+
+function calcularPrecio() {
+    let toppingPrice = precioBase;
     if (document.getElementById("oreo").checked) {
-      toppingPrice += 10;
+      toppingPrice += precioOreo;
+    }if (document.getElementById("kitkat").checked) {
+      toppingPrice += precioKitKat;
+    }if (document.getElementById("brownie").checked) {
+      toppingPrice += precioBrownie;
+    }if (document.getElementById("ninguno").checked) {
+      toppingPrice = precioBase;
     }
-    if (document.getElementById("kitkat").checked) {
-      toppingPrice += 15;
+    return toppingPrice;
+}
+const botonOreo = document.getElementById("oreo");
+botonOreo.addEventListener("click", function() {
+    document.getElementById("ninguno").checked = false;
+    const resultado = document.getElementById("resultado-9");
+    resultado.textContent = "El precio total es de " + calcularPrecio("oreo") + " MXN.";
+});
+const botonKitKat = document.getElementById("kitkat");
+botonKitKat.addEventListener("click", function() {
+    document.getElementById("ninguno").checked = false;
+    const resultado = document.getElementById("resultado-9");
+    resultado.textContent = "El precio total es de " + calcularPrecio("kitkat") + " MXN.";
+});
+const botonBrownie = document.getElementById("brownie");
+botonBrownie.addEventListener("click", function() {
+    document.getElementById("ninguno").checked = false;
+    const resultado = document.getElementById("resultado-9");
+    resultado.textContent =
+    "El precio total es de " + calcularPrecio("brownie") + " MXN.";
+});
+const botonNinguno = document.getElementById("ninguno");
+botonNinguno.addEventListener("click", function() {
+    document.getElementById("oreo").checked = false;
+    document.getElementById("kitkat").checked = false;
+    document.getElementById("brownie").checked = false;
+  
+const resultado = document.getElementById("resultado-9");
+resultado.textContent =
+"El precio total es de " + calcularPrecio("ninguno") + " MXN.";
+});
+
+/*EJERCICIO 10 Un conocido portal de educación en tecnología está ofreciendo
+programas para aprender a desarrollar aplicaciones. Escribe un programa
+que le indique a la persona interesada cuánto deberá pagar
+mensualmente de acuerdo a la opción elegida.
+El programa educativo contempla 3 diferentes niveles, cada uno con su
+costo mensual:
+● Course: $4999 MXN
+● Carrera $3999 MXN
+● Master: $2999 MXN
+Adicionalmente preguntar si cuenta con alguna beca y aplicar el
+descuento correspondiente al precio final.
+● Beca Facebook: 20% de descuento.
+● Beca Google: 15% de descuento.
+● Beca Jesua: 50% de descuento.
+Finalmente, además del precio mensual con descuento, indicar al usuario
+cuánto gastaría en total por el curso elegido, tomando en cuenta las
+siguientes duraciones:
+● Course: 2 meses
+● Carrera 6 meses
+● Master: 12 meses*/
+
+let precioInicial = 0;
+let precioFinal = 0;
+let duracion = 0;
+
+function calcularDescuento() {
+  const programa = document.getElementById("programa").value;
+  if (programa === "programaCourse" || programa === "programaCarrera" || programa === "programaMaster") {
+    const beca = document.getElementById("beca").value;
+    if (beca === "ningunaBeca" || beca === "facebookBeca" || beca === "googleBeca" || beca === "jesuaBeca") {
+      if (programa === "programaCourse") {
+        precioInicial = 4999;
+        duracion = 2;
+      } else if (programa === "programaCarrera") {
+        precioInicial = 3999;
+        duracion = 6;
+      } else if (programa === "programaMaster") {
+        precioInicial = 2999;
+        duracion = 12;
+      }
+      if (beca === "ningunaBeca") {
+        precioFinal = precioInicial;
+      } else if (beca === "facebookBeca") {
+        precioFinal = Math.round(precioInicial * (80 / 100));
+      } else if (beca === "googleBeca") {
+        precioFinal = precioInicial * (85 / 100);
+      } else if (beca === "jesuaBeca") {
+        precioFinal = precioInicial * (50 / 100);
+      }
     }
-    if (document.getElementById("brownie").checked) {
-      toppingPrice += 20;
-    }
-    if (document.getElementById("ninguno").checked) {
-      toppingPrice = 0;
-    }
-    document.getElementById("resultado-9").innerHTML = basePrice + toppingPrice + " MXN";
   }
+}
+function ejercicio10() {
+    calcularDescuento();
+    document.getElementById("resultado-10").innerHTML = "$" + precioFinal + " MXN, con duración de " + duracion + " Meses."; 
+}
 
+/*EJERCICIO 11 Realizar un programa que ayude a calcular el total a pagar de acuerdo a la
+distancia recorrida por un vehículo con cargo extra por los litros
+consumidos, tomando en consideración lo siguiente:
+Si el vehículo es “coche”, el precio kilometro ha de ser 0.20, si es “moto”
+ha de ser 0.10 y si es “autobús” 0.5.
+Si los litros consumidos están entre 0 y 100 se ha de añadir 5 al costo
+total, si es mayor la cantidad de litros consumidos se ha de añadir 10 al
+total. Considere qué:
+total a pagar = (precio kilometro x kms recorridos) + extra por litros
+consumidos.*/
 
-/*EJERCICIO 11 */
+function calcularTotal(vehiculo, distancia, litros) {
+    let distanciaMoto = 0.1;
+    let distanciaCoche = 0.2;
+    let distanciaAutobus = 0.5;
+    let gasolina = 0;
+    let litroTotal = 0;
+  
+    if (!distancia || !litros || !vehiculo) {
+      return "Debe ingresar una distancia, una cantidad de litros y un tipo de vehículo válidos";
+    }
+  
+    if (isNaN(distancia) || isNaN(litros)) {
+      return "La distancia y la cantidad de litros deben ser números";
+    }
+  
+    if (parseFloat(litros) <= 0 || parseFloat(litros) > 100) {
+      return "La cantidad de litros debe ser mayor a 0 y menor o igual a 100";
+    }
+  
+    if (vehiculo !== "moto" && vehiculo !== "coche" && vehiculo !== "autobus") {
+      return "El tipo de vehículo debe ser 'moto', 'coche' o 'autobus'";
+    }
+  
+    if (parseFloat(litros) > 0 && parseFloat(litros) <= 50) {
+      gasolina += 5;
+    } else {
+      gasolina += 10;
+    }
+  
+    if (vehiculo === "moto") {
+        litroTotal = distanciaMoto * distancia + gasolina;
+    } else if (vehiculo === "coche") {
+        litroTotal = distanciaCoche * distancia + gasolina;
+    } else if (vehiculo === "autobus") {
+        litroTotal = distanciaAutobus * distancia + gasolina;
+    }  
+    return `El costo total es del recorrido es: ${litroTotal}`;
+}
+  
+function ejercicio11() {
+    let vehiculo = document.getElementById("inputEjercicio11-1").value.toLowerCase();
+    let distancia = document.getElementById("inputEjercicio11-2").value;
+    let litros = document.getElementById("inputEjercicio11-3").value;
+    let gasolinaTotal = calcularTotal(vehiculo, distancia, litros);
+    let distanciaTotal = document.getElementById("resultado-11");
+    distanciaTotal.innerHTML = "";
+    distanciaTotal.innerHTML = gasolinaTotal;
+}
+  
 
 /*Evento checKEnter*/
+
 function checkEnter(event) {
     if (event.keyCode === 13) {
         if (event.target.id === 'input-ejercicio-1') {
@@ -228,12 +376,14 @@ function checkEnter(event) {
             ejercicio5();
         }else if (event.target.id === 'input-ejercicio-6') {
             ejercicio6();
+        }else if (event.target.id === 'input-ejercicio-6-1') {
+            ejercicio6();
+        }else if (event.target.id === 'input-ejercicio-6-2') {
+            ejercicio6();
         }else if (event.target.id === 'input-ejercicio-7') {
             ejercicio7();
         }else if (event.target.id === 'input-ejercicio-8') {
             ejercicio8();
-        }else if (event.target.id === 'input-ejercicio-10'){
-            ejercicio10();
         }else if (event.target.id === 'input-ejercicio-11'){
             ejercicio11();
         }
